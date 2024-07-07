@@ -1,0 +1,64 @@
+{% extends './base.html' %}
+{% load bootstrap4 %}
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>一覧画面</h1>
+    <ol class="breadcrumb">
+      <li><a href="{% url 'pdfmr:top' %}"><i class="fa fa-dashboard"></i> ホーム</a></li>
+      <li class="active">ダッシュボード</li>
+    </ol>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box">
+          <div class="box-header">
+            <h3 class="box-title"> <b>生成済みExcelファイル一覧</b></h3>
+          </div>
+          <div class="box-body">
+            <div class="card-body">
+              <hr>
+            <!--ここから下を新規追加 -->
+            <form action="{% url 'pdfmr:dell_file' %}" name="form" method="post">
+              {% csrf_token %}
+              <label>
+                <input type="checkbox" name="all" onClick="AllChecked();" />全て選択
+              </label><br>
+              <!--ここまでを新規追加 -->
+
+              {% for file in file_list %}
+              <label>
+                <input type="checkbox" name="checks" value="{{file}}" onClick="DisChecked();" />
+                <a href="http://127.0.0.1:8000/media/excel/{{login_user_name}}/{{file}}">{{file}}</a>
+              </label>
+              <br> 
+              {% endfor %}
+            <!--ここから下を新規追加 -->
+              <input type="submit" id="button" name="button"  class="btn btn-sm btn-danger" value="削除">
+            </form>
+            {% if warning_message %}
+            <hr>
+            <div class="alert alert-warning alert-dismissible" role="alert">
+              <p>{{warning_message}}</p>
+            </div>
+            {% endif %}
+            <hr>
+            <!--ここまでを新規追加 -->
+              <div class="text-center">
+                <a href="{% url 'pdfmr:top' %}" class="btn btn-primary btn-sm" role="button">戻る</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!-- /.content -->
+<!-- /.content-wrapper -->
+{% endblock content %}

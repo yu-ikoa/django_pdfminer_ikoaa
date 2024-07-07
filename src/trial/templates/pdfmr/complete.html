@@ -1,0 +1,48 @@
+{% extends './base.html' %}
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>一覧画面</h1>
+  <ol class="breadcrumb">
+    <li><a href="{% url 'pdfmr:top' %}"><i class="fa fa-dashboard"></i> ホーム</a></li>
+    <li class="active">ダッシュボード</li>
+  </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+<!-- Small boxes (Stat box) -->
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-header">
+        <h3 class="box-title"> <b>PDF→Excel変換処理結果</b></h3>
+      </div>
+      <div class="box-body">
+        <div class="card-body">
+          {% if message  %}
+          <div class="callout callout-info">
+            {{message}}
+          </div>
+          {% endif %}
+          {% if err  %}
+          <div class="callout callout-danger">
+              {{err |safe}}
+          </div>
+          {% endif %}
+        </div>
+        <hr>
+        <div class="text-center">
+          <a href="{% url 'pdfmr:top' %}" class="btn btn-primary btn-sm" role="button">戻る</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+</div>
+
+<!-- /.content -->
+<!-- /.content-wrapper -->
+{% endblock content %}
